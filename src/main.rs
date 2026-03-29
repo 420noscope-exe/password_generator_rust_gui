@@ -30,7 +30,7 @@ struct PasswordGenerator{
 
 //Implementation of Characters
 impl Characters{
-    fn new() -> Characters{
+    fn default() -> Characters{
         let mut data = Characters{
             capital_letters: ['A'; 26],
             lowercase_letters: ['a'; 26],
@@ -84,7 +84,7 @@ enum Message {
 
 //Implementation of PasswordGenerator
 impl PasswordGenerator{
-    fn new() -> PasswordGenerator{
+    fn default() -> PasswordGenerator{
         let mut password_generator = PasswordGenerator {
             length: 8,
             max_length: 20,
@@ -92,7 +92,7 @@ impl PasswordGenerator{
             capital_letters_enabled: true,
             numbers_enabled: true,
             password: String::new(),
-            characters: Characters::new(),
+            characters: Characters::default(),
         };
         password_generator
     }
@@ -172,7 +172,7 @@ impl PasswordGenerator{
 
 //main
 fn main() -> iced::Result {
-    iced::application(PasswordGenerator::new, PasswordGenerator::update, PasswordGenerator::view)
+    iced::application(PasswordGenerator::default, PasswordGenerator::update, PasswordGenerator::view)
     .theme(Theme::Dark)
     .run()
 }
