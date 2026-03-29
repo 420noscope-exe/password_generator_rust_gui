@@ -1,7 +1,7 @@
 //imports
 use rand;
 
-use iced::widget::{Column, Container, Row, button, column, container, row, text, text_input, toggler, TextInput};
+use iced::widget::{Container, button, column, container, text_input, toggler};
 use iced::{Alignment::Center, alignment::Horizontal::Left};
 use iced::{Theme, Length};
 use iced_aw::widget::{number_input};
@@ -85,7 +85,7 @@ enum Message {
 //Implementation of PasswordGenerator
 impl PasswordGenerator{
     fn default() -> PasswordGenerator{
-        let mut password_generator = PasswordGenerator {
+        let password_generator = PasswordGenerator {
             length: 8,
             max_length: 20,
             special_characters_enabled: true,
@@ -100,7 +100,7 @@ impl PasswordGenerator{
     fn generate_password(&mut self, capital_letters_enabled: bool, numbers_enabled: bool, special_characters_enabled: bool) -> String{
         let mut password = String::new();
         let characters = self.characters.enabled_characters(capital_letters_enabled, numbers_enabled, special_characters_enabled);
-        for i in 0..self.length{
+        for _i in 0..self.length{
             let random_index = rand::random_range(0..(characters.len()-1));
             let character = &characters[random_index..random_index+1];
             password.push_str(character);
@@ -108,8 +108,7 @@ impl PasswordGenerator{
         password
     }
 
-    fn update(&mut self, message: Message)
-    {
+    fn update(&mut self, message: Message){
         match message {
             Message::Submit => self.password = self.generate_password(self.capital_letters_enabled, self.numbers_enabled, self.special_characters_enabled),
             Message::UpdateLength(length) => self.length = length,
@@ -173,6 +172,6 @@ impl PasswordGenerator{
 //main
 fn main() -> iced::Result {
     iced::application(PasswordGenerator::default, PasswordGenerator::update, PasswordGenerator::view)
-    .theme(Theme::Dark)
-    .run()
+        .theme(Theme::Dark)
+        .run()
 }
